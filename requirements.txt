@@ -1,0 +1,16 @@
+# This file is for informational purposes only.
+# In a Node.js/React project, the dependencies are managed by the `package.json` file.
+# To install the required packages, run `npm install`.
+
+# --- Core Dependencies ---
+# The versions listed here are examples. Your `package.json` will have the exact versions.
+
+react@^18.2.0
+react-dom@^18.2.0
+react-router-dom@^6.4.3
+react-scripts@^5.0.1
+
+# --- How to use ---
+# 1. You do not need this file to run the project.
+# 2. To see the full list of dependencies, check the "dependencies" section in package.json.
+# 3. To install all dependencies, simply run the command: npm install

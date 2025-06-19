@@ -1,0 +1,53 @@
+{
+  "name": "pro-ecommerce-site",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Welcome to ProShop, a sleek and professional frontend demonstration for an e-commerce website built with React. This project focuses on a modern, dark-themed UI with gradient effects, a clean component structure, and foundational e-commerce features like user login and registration.",
+  "main": "firebase.js",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "dependencies": {
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^13.5.0",
+    "firebase": "^11.9.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-router-dom": "^7.6.2",
+    "react-scripts": "^0.0.0",
+    "web-vitals": "^2.1.4"
+  },
+  "devDependencies": {},
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Siddhartha-NV/E-Commerce-Firebase.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Siddhartha-NV/E-Commerce-Firebase/issues"
+  },
+  "homepage": "https://github.com/Siddhartha-NV/E-Commerce-Firebase#readme"
+}
+  
