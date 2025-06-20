@@ -7,11 +7,6 @@ const Navbar = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    logout();
-    navigate('/login');
-  };
-
   return (
     <nav className={styles.navbar}>
       <NavLink to="/" className={styles.logo}>ProShop</NavLink>
@@ -22,13 +17,13 @@ const Navbar = () => {
       <div className={styles.authLinks}>
         {user ? (
           <>
-            <span className={styles.welcomeText}>Welcome, {user.name}</span>
-            <button onClick={handleLogout} className={styles.authButton}>Logout</button>
+            <span>Welcome, {user.name}</span>
+            <button onClick={() => {logout(); navigate('/login');}} className={styles.authButton}>Logout</button>
           </>
         ) : (
           <>
             <NavLink to="/login" className={styles.authButton}>Login</NavLink>
-            <NavLink to="/register" className={`${styles.authButton} ${styles.registerButton}`}>Register</NavLink>
+            <NavLink to="/register" className={styles.authButton}>Register</NavLink>
           </>
         )}
       </div>

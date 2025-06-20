@@ -1,70 +1,28 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import styles from './AuthForm.module.css';
-
-import { write_data } from './firebase';
+import styles from './LoginPage.module.css';
 
 const LoginPage = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
-    const { login } = useAuth();
-    const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const { login } = useAuth();
+  const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        setError('');
-        const success = login({ email, password });
-        if (success) {
-            navigate('/');
-        } else {
-            setError('Invalid email or password. Please try again.');
-        }
-    };
+  const handleSubmit = e => {
+    e.preventDefault();
+    if (login({ email, password })) navigate('/');
+    else alert('Invalid credentials');
+  };
 
-    try {
-      await write_data(email, password);
-      navigate('/');
-    } catch (err) {
-      setError('Failed to save data. Please try again.');
-      console.error(err);
-    }
-
-
-    return (
-        <div className={styles.authContainer}>
-            <form onSubmit={handleSubmit} className={styles.authForm}>
-                <h2 className={styles.title}>Login</h2>
-                {error && <p className={styles.error}>{error}</p>}
-                <div className={styles.formGroup}>
-                    <label className={styles.label}>Email</label>
-                    <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        className={styles.input}
-                        required
-                    />
-                </div>
-                <div className={styles.formGroup}>
-                    <label className={styles.label}>Password</label>
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        className={styles.input}
-                        required
-                    />
-                </div>
-                <button type="submit" className={styles.submitButton}>Login</button>
-                <p className={styles.switchText}>
-                    Don't have an account? <Link to="/register">Register here</Link>
-                </p>
-            </form>
-        </div>
-    );
+  return (
+    <form onSubmit={handleSubmit} className={styles.form}>
+      <h2>Login</h2>
+      <input type="email" value={email} placeholder="Email" onChange={e => setEmail(e.target.value)} required />
+      <input type="password" value={password} placeholder="Password" onChange={e => setPassword(e.target.value)} required />
+      <button type="submit">Login</button>
+    </form>
+  );
 };
-
 
 export default LoginPage;

@@ -1,58 +1,48 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
-const AuthContext = createContext(null);
+const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null);
 
-    useEffect(() => {
-        // Check local storage for a logged-in user when the app loads
-        const storedUser = localStorage.getItem('user');
-        if (storedUser) {
-            setUser(JSON.parse(storedUser));
-        }
-    }, []);
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) setUser(JSON.parse(storedUser));
+  }, []);
 
-    const login = (userData) => {
-        // In a real app, you'd verify credentials with a backend
-        // For this demo, we'll simulate a login
-        const users = JSON.parse(localStorage.getItem('users')) || [];
-        const foundUser = users.find(u => u.email === userData.email && u.password === userData.password);
+  const login = ({ email, password }) => {
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    const foundUser = users.find(u => u.email === email && u.password === password);
+    if (foundUser) {
+      setUser(foundUser);
+      localStorage.setItem('user', JSON.stringify(foundUser));
+      return true;
+    }
+    return false;
+  };
 
-        if (foundUser) {
-            localStorage.setItem('user', JSON.stringify(foundUser));
-            setUser(foundUser);
-            return true;
-        }
-        return false;
-    };
+  const register = (newUser) => {
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+    if (users.some(u => u.email === newUser.email)) {
+      alert('User already exists');
+      return false;
+    }
+    users.push(newUser);
+    localStorage.setItem('users', JSON.stringify(users));
+    alert('Registration Successful');
+    return true;
+  };
 
-    const register = (userData) => {
-        // In a real app, you'd send this to a backend to create a new user
-        let users = JSON.parse(localStorage.getItem('users')) || [];
-        const userExists = users.some(u => u.email === userData.email);
+  const logout = () => {
+    setUser(null);
+    localStorage.removeItem('user');
+  };
 
-        if (userExists) {
-            alert("User with this email already exists!");
-            return false;
-        }
-
-        users.push(userData);
-        localStorage.setItem('users', JSON.stringify(users));
-        alert("Registration successful! Please log in.");
-        return true;
-    };
-
-    const logout = () => {
-        localStorage.removeItem('user');
-        setUser(null);
-    };
-
-    const value = { user, login, logout, register };
-
-    return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ user, login, register, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
-export const useAuth = () => {
-    return useContext(AuthContext);
-};
+export const useAuth = () => useContext(AuthContext);

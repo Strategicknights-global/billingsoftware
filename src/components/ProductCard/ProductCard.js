@@ -6,9 +6,9 @@ const ProductCard = ({ product }) => {
     <div className={styles.card}>
       <img src={product.image} alt={product.name} className={styles.productImage} />
       <div className={styles.cardBody}>
-        <h3 className={styles.productName}>{product.name}</h3>
-        <p className={styles.productPrice}>${product.price.toFixed(2)}</p>
-        <button className={styles.addToCartButton}>Add to Cart</button>
+        <h3>{product.name}</h3>
+        <p>${product.price}</p>
+        <button>Add to Cart</button>
       </div>
     </div>
   );
